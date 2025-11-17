@@ -14,10 +14,10 @@
 ## 📑 Table of Contents  
 1. [📌 Background & Overview](#1--background--overview)    
 2. [📂 Dataset Description & Data Structure](#2--dataset-description--data-structure)    
-3. [🔍 Exploratory Data Analysis (EDA)](3--exploratory-data-analysis-eda)    
-4. [🧮 Data Processing](4--data-processing)    
-5. [📊 Visulization & Analysis](5--visulization--analysis)    
-6. [🔎 Insights & Recommendations](6--insights--recommendations)    
+3. [🔍 Exploratory Data Analysis (EDA)](#3--exploratory-data-analysis-eda)    
+4. [🧮 Data Processing](#4--data-processing)    
+5. [📊 Visulization & Analysis](#5--visulization--analysis)    
+6. [🔎 Insights & Recommendations](#6--insights--recommendations)    
 
 ---
 
