@@ -181,6 +181,7 @@ print('')
 print(df.describe())
 ```
 
+*Information of the table to detect the data type of each column*
 | # | Column      | Non-Null Count  | Dtype          |
 |---|-------------|-----------------|----------------|
 | 0 | InvoiceNo   | 541909 non-null | object         |
@@ -192,6 +193,7 @@ print(df.describe())
 | 6 | CustomerID  | 406829 non-null | float64        |
 | 7 | Country     | 541909 non-null | object         |
 
+*Help detect the data value of the columns (min, max, count,...)*
 |       | Quantity      | InvoiceDate                   | UnitPrice     | CustomerID    |
 |-------|---------------|-------------------------------|---------------|---------------|
 | count | 541909.000000 | 541909                        | 541909.000000 | 406829.000000 |
@@ -231,7 +233,33 @@ print(df[(df.Quantity < 0) & (df.check_cancel == True)].head())
 print('')
 df[(df.Quantity < 0) & (df.check_cancel == False)].head()
 ```
-<img width="1460" height="1085" alt="image" src="https://github.com/user-attachments/assets/aee6472e-9a2d-4f50-8675-4ff2f2f60aa9" />
+
+*Print top 5 rows with values ​​having Quantity < 0*
+|     | InvoiceNo | StockCode | Description                     | Quantity | InvoiceDate         | UnitPrice | CustomerID | Country        |
+|-----|-----------|-----------|---------------------------------|----------|---------------------|-----------|------------|----------------|
+| 141 | C536379   | D         | Discount                        | -1       | 2010-12-01 09:41:00 | 27.50     | 14527.0    | United Kingdom |
+| 154 | C536383   | 35004C    | SET OF 3 COLOURED FLYING DUCKS  | -1       | 2010-12-01 09:49:00 | 4.65      | 15311.0    | United Kingdom |
+| 235 | C536391   | 22556     | PLASTERS IN TIN CIRCUS PARADE   | -12      | 2010-12-01 10:24:00 | 1.65      | 17548.0    | United Kingdom |
+| 236 | C536391   | 21984     | PACK OF 12 PINK PAISLEY TISSUES | -24      | 2010-12-01 10:24:00 | 0.29      | 17548.0    | United Kingdom |
+| 237 | C536391   | 21983     | PACK OF 12 BLUE PAISLEY TISSUES | -24      | 2010-12-01 10:24:00 | 0.29      | 17548.0    | United Kingdom |
+
+*Check if the reason for the Quantity < 0 column is due to a canceled transaction*
+|     | InvoiceNo | StockCode | Description                     | Quantity | InvoiceDate         | UnitPrice | CustomerID | Country        | check_cancel |
+|-----|-----------|-----------|---------------------------------|----------|---------------------|-----------|------------|----------------|--------------|
+| 141 | C536379   | D         | Discount                        | -1       | 2010-12-01 09:41:00 | 27.50     | 14527.0    | United Kingdom | True         |
+| 154 | C536383   | 35004C    | SET OF 3 COLOURED FLYING DUCKS  | -1       | 2010-12-01 09:49:00 | 4.65      | 15311.0    | United Kingdom | True         |
+| 235 | C536391   | 22556     | PLASTERS IN TIN CIRCUS PARADE   | -12      | 2010-12-01 10:24:00 | 1.65      | 17548.0    | United Kingdom | True         |
+| 236 | C536391   | 21984     | PACK OF 12 PINK PAISLEY TISSUES | -24      | 2010-12-01 10:24:00 | 0.29      | 17548.0    | United Kingdom | True         |
+| 237 | C536391   | 21983     | PACK OF 12 BLUE PAISLEY TISSUES | -24      | 2010-12-01 10:24:00 | 0.29      | 17548.0    | United Kingdom | True         |
+
+*Print top 5 rows with values ​​having Quantity < 0 & check_cancel == False*
+|      | InvoiceNo | StockCode | Description | Quantity | InvoiceDate         | UnitPrice | CustomerID | Country        | check_cancel |
+|------|-----------|-----------|-------------|----------|---------------------|-----------|------------|----------------|--------------|
+| 2406 | 536589    | 21777     | NaN         | -10      | 2010-12-01 16:50:00 | 0.0       | NaN        | United Kingdom | False        |
+| 4347 | 536764    | 84952C    | NaN         | -38      | 2010-12-02 14:42:00 | 0.0       | NaN        | United Kingdom | False        |
+| 7188 | 536996    | 22712     | NaN         | -20      | 2010-12-03 15:30:00 | 0.0       | NaN        | United Kingdom | False        |
+| 7189 | 536997    | 22028     | NaN         | -20      | 2010-12-03 15:30:00 | 0.0       | NaN        | United Kingdom | False        |
+| 7190 | 536998    | 85067     | NaN         | -6       | 2010-12-03 15:30:00 | 0.0       | NaN        | United Kingdom | False        |
 
 #### e. Detect the reason for the unreasonable data value column (Price < 0)
 
@@ -355,7 +383,40 @@ df_group_day = df[df.CustomerID.isnull()][['Month','InvoiceNo']].groupby(['Month
 df_group_day.head(50)
 ```
 
-<img width="900" height="1262" alt="image" src="https://github.com/user-attachments/assets/fa1c2bc8-4546-45f1-8575-472d9ea66aab" />
+*Check why CustomerID is null so often - head*
+|      | InvoiceNo | StockCode | Description                     | Quantity | InvoiceDate         | UnitPrice | CustomerID | Country        | check_cancel |
+|------|-----------|-----------|---------------------------------|----------|---------------------|-----------|------------|----------------|--------------|
+| 1443 | 536544    | 21773     | DECORATIVE ROSE BATHROOM BOTTLE | 1        | 2010-12-01 14:32:00 | 2.51      | None       | United Kingdom | False        |
+| 1444 | 536544    | 21774     | DECORATIVE CATS BATHROOM BOTTLE | 2        | 2010-12-01 14:32:00 | 2.51      | None       | United Kingdom | False        |
+| 1445 | 536544    | 21786     | POLKADOT RAIN HAT               | 4        | 2010-12-01 14:32:00 | 0.85      | None       | United Kingdom | False        |
+| 1446 | 536544    | 21787     | RAIN PONCHO RETROSPOT           | 2        | 2010-12-01 14:32:00 | 1.66      | None       | United Kingdom | False        |
+| 1447 | 536544    | 21790     | VINTAGE SNAP CARDS              | 9        | 2010-12-01 14:32:00 | 1.66      | None       | United Kingdom | False        |
+
+*Check why CustomerID is null so often - tail*
+|        | InvoiceNo | StockCode | Description                   | Quantity | InvoiceDate         | UnitPrice | CustomerID | Country        | check_cancel |
+|--------|-----------|-----------|-------------------------------|----------|---------------------|-----------|------------|----------------|--------------|
+| 541536 | 581498    | 85099B    | JUMBO BAG RED RETROSPOT       | 5        | 2011-12-09 10:26:00 | 4.13      | None       | United Kingdom | False        |
+| 541537 | 581498    | 85099C    | JUMBO BAROQUE BLACK WHITE     | 4        | 2011-12-09 10:26:00 | 4.13      | None       | United Kingdom | False        |
+| 541538 | 581498    | 85150     | LADIES & GENTLEMEN METAL SIGN | 1        | 2011-12-09 10:26:00 | 4.96      | None       | United Kingdom | False        |
+| 541539 | 581498    | 85174     | S/4 CACTI CANDLES             | 1        | 2011-12-09 10:26:00 | 10.79     | None       | United Kingdom | False        |
+| 541540 | 581498    | DOT       | DOTCOM POSTAGE                | 1        | 2011-12-09 10:26:00 | 1714.17   | None       | United Kingdom | False        |
+
+*Check null distribution over time*
+|    | Month   | InvoiceNo |
+|----|---------|-----------|
+| 0  | 2010-12 | 15323     |
+| 1  | 2011-01 | 13077     |
+| 2  | 2011-02 | 7178      |
+| 3  | 2011-03 | 8628      |
+| 4  | 2011-04 | 6454      |
+| 5  | 2011-05 | 7844      |
+| 6  | 2011-06 | 8792      |
+| 7  | 2011-07 | 11820     |
+| 8  | 2011-08 | 7476      |
+| 9  | 2011-09 | 9233      |
+| 10 | 2011-10 | 9750      |
+| 11 | 2011-11 | 18838     |
+| 12 | 2011-12 | 7807      |
 
 #### c. Insights
 
@@ -389,7 +450,9 @@ print('')
 print(df.shape)
 ```
 
-<img width="1040" height="436" alt="image" src="https://github.com/user-attachments/assets/141dbffb-0691-47e5-80cb-008305e04346" />
+Print result: 
+(10038, 11)
+(397884, 11)
 
 
 #### b. Reason for duplicate
@@ -406,7 +469,22 @@ print('')
 
 print(df[(df.InvoiceNo == '536401') & (df.StockCode == 82580)].head())
 ```
-<img width="1829" height="881" alt="image" src="https://github.com/user-attachments/assets/95dd0a42-1fa2-476d-a9cd-194430a3c726" />
+*Check the op first 5 duplicates*
+|     | InvoiceNo | StockCode | Description                     | Quantity | InvoiceDate         | UnitPrice | CustomerID | Country        | check_cancel | Day        | Month   |
+|-----|-----------|-----------|---------------------------------|----------|---------------------|-----------|------------|----------------|--------------|------------|---------|
+| 125 | 536381    | 71270     | PHOTO CLIP LINE                 | 3        | 2010-12-01 09:41:00 | 1.25      | 15311.0    | United Kingdom | False        | 2010-12-01 | 2010-12 |
+| 498 | 536409    | 90199C    | 5 STRAND GLASS NECKLACE CRYSTAL | 1        | 2010-12-01 11:45:00 | 6.35      | 17908.0    | United Kingdom | False        | 2010-12-01 | 2010-12 |
+| 502 | 536409    | 85116     | BLACK CANDELABRA T-LIGHT HOLDER | 5        | 2010-12-01 11:45:00 | 2.10      | 17908.0    | United Kingdom | False        | 2010-12-01 | 2010-12 |
+| 517 | 536409    | 21866     | UNION JACK FLAG LUGGAGE TAG     | 1        | 2010-12-01 11:45:00 | 1.25      | 17908.0    | United Kingdom | False        | 2010-12-01 | 2010-12 |
+| 525 | 536409    | 90199C    | 5 STRAND GLASS NECKLACE CRYSTAL | 2        | 2010-12-01 11:45:00 | 6.35      | 17908.0    | United Kingdom | False        | 2010-12-01 | 2010-12 |
+
+Empty DataFrame
+Columns: [InvoiceNo, StockCode, Description, Quantity, InvoiceDate, UnitPrice, CustomerID, Country, check_cancel, Day, Month]
+Index: []
+
+Empty DataFrame
+Columns: [InvoiceNo, StockCode, Description, Quantity, InvoiceDate, UnitPrice, CustomerID, Country, check_cancel, Day, Month]
+Index: []
 
 #### c. Insights
 
@@ -424,7 +502,7 @@ df_drop_duplications = df.drop_duplicates(subset=["InvoiceNo", "StockCode","Invo
 df_drop_duplications.shape
 ```
 
-<img width="973" height="216" alt="image" src="https://github.com/user-attachments/assets/1de60774-6689-4f72-ba1a-ae9b6159565c" />
+Print result: (387846, 11)
 
 ```python
 df_drop_duplications.head()
