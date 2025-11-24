@@ -397,15 +397,11 @@ missing_df.head(10)
 ```python
 # check why CustomerID is null so often
 print(df[df.CustomerID.isnull()].head())
-
-print('')
-
 print(df[df.CustomerID.isnull()].tail())
 
 # check null distribution over time
 df['Day'] = pd.to_datetime(df['InvoiceDate']).dt.date
 df['Month'] = df['Day'].apply(lambda x: str(x)[:-3])
-
 df_group_day = df[df.CustomerID.isnull()][['Month','InvoiceNo']].groupby(['Month']).count().reset_index().sort_values(by = ['Month'], ascending = True)
 df_group_day.head(50)
 ```
@@ -473,13 +469,14 @@ df = df[df['CustomerID'].notnull()]
 #df_description_update.head()
 df_duplication = df.duplicated(subset=["InvoiceNo", "StockCode","InvoiceDate","CustomerID"])
 print (df[df_duplication].shape)
-print('')
 print(df.shape)
 ```
 
-Print result: 
-(10038, 11)
-(397884, 11)
+*Print result:*
+
+*(10038, 11)*
+
+*(397884, 11)*
 
 
 #### b. Reason for duplicate
@@ -487,13 +484,7 @@ Print result:
 ```python
 # What is the reason for duplication
 print(df[df_duplication].head())
-
-print('')
-
 print(df[(df.InvoiceNo == '536381') & (df.StockCode == 71270)].head())
-
-print('')
-
 print(df[(df.InvoiceNo == '536401') & (df.StockCode == 82580)].head())
 ```
 *Check the op first 5 duplicates*
@@ -529,7 +520,7 @@ df_drop_duplications = df.drop_duplicates(subset=["InvoiceNo", "StockCode","Invo
 df_drop_duplications.shape
 ```
 
-Print result: (387846, 11)
+*Print result: (387846, 11)*
 
 ```python
 df_drop_duplications.head()
@@ -855,36 +846,16 @@ plt.show() # Use plt.show() if running in an interactive environment
 
 ### 6.2. Royal & Non Royal
 
-1. Average purchase quantity
-- Loyal Customer is a Customer whose number of transactions in 1 order is not too large (< 15 products in 1 order) -> This can be an individual customer but loyal and create long-term value
+1. Extremely High Average Quantity Drives Loyalty: Customers with the highest average purchase quantity (q4 > 15) have a significantly higher likelihood of being Loyal.
 
-    -> Actions: Attract this group of potential customers through advertising strategies, Marketing, ...
+2. Large First-Time Purchase Quantity Hinders Loyalty: Customers who make a very large first purchase (q4 > 12) tend to be more Non Loyal. This suggests that a large, initial one-off transaction may not guarantee the beginning of loyalty.
 
-2. Average purchase price
-- Loyal Customer is a Customer whose transaction value in 1 order is not too large (< 18 dollars for 1 order -> This can be an individual customer, focusing on lower-priced product segments but loyal and create long-term value
-
-    -> Actions: Attract this group of potential customers through advertising strategies, Marketing, ...
-
-3. First purchase quantity
-- Loyal customers do not necessarily start with a large order, but have stability from the first purchase.
-
-- Non-Loyal has many large buyers from the beginning but does not maintain loyalty → they are likely to only buy 1-2 times and then leave.
-
-    -> Action: For new customers who buy a lot (bin q4), need to implement a retention program early to turn them into loyal customers. Customers who buy little the first time (bin q1) but sustainably → focus on nurturing and upselling.
-
-4. First purchase price
-- High first order value does not mean loyalty.
-
-- Loyal customers tend to spend moderately at first but maintain regularly.
-
-- Non-Loyal sometimes spend a lot right away but not sustainably, easily "one time and that's it".
-
-    -> Action: For customers who spend a lot of money the first time (q4) but are not Loyal → need a care/gratitude program to retain them. Use this insight to classify new customers: "spend a lot of money the first time + not Loyal" → target retention marketing campaigns immediately.
+3. Polarized Behavior in Loyal Customers: Loyal customers tend to cluster in the extreme bins (both lowest and highest) for metrics like Average Purchase Quantity and First Purchase Cost, while Non Loyal customers are mostly concentrated in the average/moderate brackets.
 
 ### 6.3. Overall Insights & Recommendations
 
-| Strategic Group                | Consolidated RFM Segments                                                                                   | Overall Distribution (User/Spending)                                             | Consolidated Insights (Loyal/Non Loyal)                                                                                                                                                       | Marketing Recommendations for the Holiday Season                                                                                                                                                                                                                                                                                                                     |
-|--------------------------------|-------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 1. Value Elevation & Retention | Champions ($\sim 18\% / 61\%$) & Loyal ($\sim 10\% / 12\%$)                                                 | 28% Users, 73% Spending. Spending contribution is 2.6x the user ratio.           | This is the core Loyal customer base. They consistently spend at the $q3/q4$ Average Price/Cost level and had high $q3/q4$ First Cost. The priority is maintaining AOV and LTV.               | VIP Gifting & Upsell: Curate limited-edition, high-priced ($q4$ Cost/Price) items for the holidays. No general discounts. Exclusive Rewards: Offer Early Access or high-value gifts (not vouchers) to reinforce loyalty.                                                                                                                                             |
-| 2. Risk & Reactivation         | At Risk ($\sim 10\% / 7\%$), Hibernating ($\sim 19\% / 4\%$), Lost Customers ($\sim 10\% / 1\%$)            | 39% Users, 12% Spending. A large user group with very low spending contribution. | This group includes customers who were once Loyal or had potential, but are showing a decline in Recency (R). Prioritize At Risk (higher recovery potential) and reactivating Hibernating.    | Win-Back Campaigns & Personalized Offers: Focus on R: Send urgent/time-bound discount offers to At Risk to drive pre-holiday purchases. Hibernating: Use personalized offers based on past favorites to reactivate them.                                                                                                                                             |
-| 3. Growth Potential            | New Customers ($\sim 7\% / 1\%$), Potential Loyalist ($\sim 11\% / 4\%$), Need Attention ($\sim 5\% / 4\%$) | 23% Users, 9% Spending. This is the conversion pipeline from Non Loyal to Loyal. | These customers have high Recency (R) but low F and M. Their initial purchase behavior (First Cost/Quantity) is key to determining growth potential. Need to increase F and M for conversion. | Loyalty Ladder & First Purchase Focus: New Customers: Implement the "First Order Premium" strategy encouraging them to exceed the $q3$ First Cost threshold on their next purchase to become Potential Loyalists. Potential Loyalist: Offer incentives or bonus points to encourage a second/third transaction and introduce them to $q2/q3$ Average Price products. |
+| Strategic Group                  | Consolidated RFM Segments                                                              | Overall Distribution (User / Spending)                                           | Consolidated Insights (Loyal / Non Loyal)                                                                                                                                                     | Marketing Recommendations for the Holiday Season                                                                                                                                                                                                                                                                                                                   |
+|----------------------------------|----------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 1. Value Elevation and Retention | Champions (~ 18% / 61%) & Loyal (~ 10% / 12%)                                          | 28% Users, 73% Spending. Spending contribution is 2.6x the user ratio.           | This is the core Loyal customer base. They consistently spend at the q3/q4 Average Price/Cost level and had high q3/q4 First Cost. The priority is maintaining AOV and LTV.                   | VIP Gifting and Upsell: Curate limited-edition, high-priced (q4 Cost/Price) items for the holidays. No general discounts. Exclusive Rewards: Offer Early Access or high-value gifts (not vouchers) to reinforce loyalty.                                                                                                                                           |
+| 2. Risk and Reactivation         | At Risk (~ 10% / 7%), Hibernating (~ 19% / 4%), Lost Customers (~ 10% / 1%)            | 39% Users, 12% Spending. A large user group with very low spending contribution. | This group includes customers who were once Loyal or had potential, but are showing a decline in Recency (R). Prioritize At Risk (higher recovery potential) and reactivating Hibernating.    | Win-Back Campaigns and Personalized Offers: Focus on R: Send urgent/time-bound discount offers to At Risk to drive pre-holiday purchases. Hibernating: Use personalized offers based on past favorites to reactivate them.                                                                                                                                         |
+| 3. Growth Potential              | New Customers (~ 7% / 1%), Potential Loyalist (~ 11% / 4%), Need Attention (~ 5% / 4%) | 23% Users, 9% Spending. This is the conversion pipeline from Non Loyal to Loyal. | These customers have high Recency (R) but low F and M. Their initial purchase behavior (First Cost/Quantity) is key to determining growth potential. Need to increase F and M for conversion. | Loyalty Ladder and First Purchase Focus: New Customers: Implement the "First Order Premium" strategy encouraging them to exceed the q3 First Cost threshold on their next purchase to become Potential Loyalists. Potential Loyalist: Offer incentives or bonus points to encourage a second/third transaction and introduce them to q2/q3 Average Price products. |
