@@ -82,7 +82,11 @@ This method helps businesses group and understand their customers based on how r
 ### 2.1. Tables Used
 
 The dataset consists of two tables (sheets):
-- Sheet 1: E-commerce Retail – Contains transaction-level data, including order details, customer IDs, and purchase information.
+
+<details>
+    <summary>
+        📌 Sheet 1: E-commerce Retail – Contains transaction-level data, including order details, customer IDs, and purchase information. (Click to expand)
+    </summary>
 
 |        | InvoiceNo | StockCode |                         Description | Quantity |         InvoiceDate | UnitPrice | CustomerID |        Country |
 |--------|-----------|-----------|-------------------------------------|----------|---------------------|-----------|------------|----------------|
@@ -98,7 +102,12 @@ The dataset consists of two tables (sheets):
 | 541907 |    581587 |     23255 |     CHILDRENS CUTLERY CIRCUS PARADE |        4 | 2011-12-09 12:50:00 |      4.15 |    12680.0 |         France |
 | 541908 |    581587 |     22138 |        BAKING SET 9 PIECE RETROSPOT |        3 | 2011-12-09 12:50:00 |      4.95 |    12680.0 |         France |
 
-- Sheet 2: Segmentation – Stores customer segments along with their RFM scores.
+</details>
+
+<details>
+    <summary>
+        📌 Sheet 2: Segmentation – Stores customer segments along with their RFM scores. (Click to expand)
+    </summary>
 
 |        Segment        |                                                        RFM Score                                                       |
 |-----------------------|------------------------------------------------------------------------------------------------------------------------|
@@ -114,9 +123,14 @@ The dataset consists of two tables (sheets):
 | Hibernating Customers | 332, 322, 233, 232, 223, 222, 132, 123, 122, 212, 211                                                                  |
 | Lost Customers        | 111, 112, 121, 131, 141, 151                                                                                           |
 
+</details>
+
 ### 2.2. Table Schema & Data Snapshot
 
-📌 Sheet 1: E-commerce Retail
+<details>
+    <summary>
+        📌 Sheet 1: E-commerce Retail. (Click to expand)
+    </summary>
 
 | Column Name |    Data Type   |                                                Description                                                |
 |-------------|----------------|-----------------------------------------------------------------------------------------------------------|
@@ -129,17 +143,29 @@ The dataset consists of two tables (sheets):
 | CustomerID  | float64        | Unique 5-digit identifier for each customer.                                                              |
 | Country     | object         | Name of the country where the customer resides.                                                           |
 
-📌 Sheet 2: Segmentation
+</details>
+
+<details>
+    <summary>
+        📌 Sheet 2: Segmentation. (Click to expand)
+    </summary>
 
 | Column Name |          Description          |
 |:------------|:------------------------------|
 | Segment     | Segment Name                  |
 | RFM Score   | List of score in that Segment |
 
+</details>
+
 ## 3. 🔍 Exploratory Data Analysis (EDA)
 
 ### 3.1. Understand Data
 
+<details>
+    <summary>
+        Click here to see details of the data understanding process 
+    </summary>
+    
 #### a. Import Packages & Load Data Set
 
 ```python
@@ -272,8 +298,9 @@ df[df.UnitPrice < 0].head()
 |--------|----------:|----------:|----------------:|---------:|--------------------:|----------:|-----------:|---------------:|-------------:|
 | 299983 |   A563186 |         B | Adjust bad debt |        1 | 2011-08-12 14:51:00 | -11062.06 |        NaN | United Kingdom |        False |
 | 299984 |   A563187 |         B | Adjust bad debt |        1 | 2011-08-12 14:52:00 | -11062.06 |        NaN | United Kingdom |        False |
+</details>
 
-#### f. Insights:
+#### Insights:
 
 ⚡ Initial Data Quality Findings
 
