@@ -65,9 +65,9 @@ How can SuperStore use RFM segmentation to efficiently categorize customers and 
 🚩 Why RFM?
 
 RFM is a marketing method that looks at three things: Recency, Frequency, and Monetary value.
-- Recency: How long it has been since a customer last bought something.
-- Frequency: How many times the customer has made purchases.
-- Monetary: How much money the customer has spent in total.
+- **Recency**: How long it has been since a customer last bought something.
+- **Frequency**: How many times the customer has made purchases.
+- **Monetary**: How much money the customer has spent in total.
 
 This method helps businesses group and understand their customers based on how recently they buy, how often they buy, and how much they spend. RFM is especially useful for small and medium businesses because it helps them target the right customer groups, increase ROI, lower churn, save marketing cost, and improve customer relationships.
 
@@ -163,7 +163,7 @@ The dataset consists of two tables (sheets):
 
 <details>
     <summary>
-        Click here to see details of the data understanding process 
+        Click here to see details of the data understanding process 🔎  
     </summary>
     
 #### a. Import Packages & Load Data Set
@@ -451,7 +451,7 @@ General comments:
 - A huge number of missing in every month -> Missing is not a small error. It is a systematic missing.
 - Invoices with CustomerID = NULL are transactions without customer registration (guest checkout) -> usually walk-in customers or direct retail at the store.
 - If these Null lines are left, RFM cannot be calculated.
-- 
+
 Solution:
 - Drop all Nulls.
 
@@ -582,6 +582,8 @@ RFM_df.head()
 | 2 | 12348.0    | 75      | 27        | 1595.64  | 2010-12-16 | -75             | 2010-12-01  | 2 | 2 | 4 | 224 |
 | 3 | 12349.0    | 18      | 73        | 1757.55  | 2011-11-21 | -18             | 2011-11-01  | 4 | 4 | 4 | 444 |
 | 4 | 12350.0    | 310     | 17        | 334.40   | 2011-02-02 | -310            | 2011-02-01  | 1 | 2 | 2 | 122 |
+
+Dividing the data into 5 parts using the pd.qcut(..., 5) function (quintiles) ensures that **each resulting group contains approximately 20% of the total customers**. This creates a meaningful 1-5 scale that is sufficient to differentiate customer behavior while remaining simple enough to apply marketing strategies effectively.
 
 #### c. Merge with Segmentation explanation
 
@@ -880,11 +882,11 @@ df_pivot_first_cost.plot(kind='bar', stacked=True, figsize=(10,6),
 ## 6. 🔎 Insights & Recommendations
 ### 6.1. RFM Model
 
-1. At Risk Customer and Cannot Lose Them Customer are two important customer groups (most of the customers and contribute the most revenue). However, the large proportion of At Risk and Cannot Lose Them groups is a warning sign. Due to the characteristics of these customers, they have not used the product for a long time, and are likely to abandon the product
+1. **At Risk Customer** and **Cannot Lose Them Customer** are two important customer groups (most of the customers and contribute the most revenue). However, the large proportion of **At Risk** and **Cannot Lose Them** groups is a warning sign. Due to the characteristics of these customers, they have not used the product for a long time, and are likely to abandon the product
 
     -> Actions: Promotional campaigns, or appropriate notifications to encourage customers to use the product.
 
-2. Loyal, New Customer, Potential Loyalist, and Promising groups account for the majority of customers. However, most of these are customers with low transaction value (contributing modest revenue)
+2. **Loyal**, **New Customer**, **Potential Loyalist**, and **Promising** groups account for the majority of customers. However, most of these are customers with low transaction value (contributing modest revenue)
 
     -> Actions: Promote cross-selling campaigns, encourage consumption,...
 
