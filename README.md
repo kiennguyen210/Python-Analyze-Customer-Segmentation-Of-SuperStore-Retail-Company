@@ -352,7 +352,7 @@ print('')
 
 column_list = ['InvoiceNo','StockCode','Description','CustomerID','Country']
 for c in column_list:
-df[c] = df[c].astype(str)
+    df[c] = df[c].astype(str)
 
 # drop data value is not suitable
 ## drop data value with UnitPrice < 0
